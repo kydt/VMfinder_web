@@ -1,0 +1,15 @@
+h1, p {
+  font-family: Lato;
+}
+
+div{
+  text-align: center;
+}
+
+.buttons {
+    text-align: left;
+}
+
+.headTytle{
+  text-align: center;
+}
