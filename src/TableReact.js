@@ -4,7 +4,6 @@ import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import {TableRow} from './TableRow.js';
 import {TableHead} from './TableHead.js';
-export {TableReact};
 
 class TableReact extends Component {
   constructor(){
@@ -14,8 +13,8 @@ class TableReact extends Component {
       classNameHere:'tableHere',
       rowSelected: false,
       rowSelectedId: -1,
-      }
     }
+  }
   
   rowIsSelected(id){
     console.log('they equal: ' + this.state.rowSelectedId === id);
@@ -38,9 +37,9 @@ class TableReact extends Component {
         rowSelected: true
       });
     }
-
+    
   }
-
+  
   getClName(num){
     if (this.state.rowSelected) {
       if (this.state.rowSelectedId === num) {
@@ -49,8 +48,8 @@ class TableReact extends Component {
     }
     return this.props.users[num].status == 'Busy' ? 'table-danger' : 'table-success';
   }
-    
-//name, leasee, status, notes
+  
+  //name, leasee, status, notes
   render() {
     return (
       <tb responsive="lg" className="table table-hover">
@@ -67,3 +66,5 @@ class TableReact extends Component {
     );
   }
 }
+
+export {TableReact};

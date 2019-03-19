@@ -2,20 +2,19 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-export {TableHead};
 
 class TableHead extends Component {
   constructor(){
     super();
     this.state = {
       classNameHere:'tableHead'
-      }
     }
-    
-//name, leasee, status, notes
+  }
+  
+  //name, leasee, status, notes
   render() {
     return (
-         <tr>
+      <tr>
             <th scope="col">Name</th>
             <th scope="col">Leasee</th>
             <th scope="col">Status</th>
@@ -23,5 +22,7 @@ class TableHead extends Component {
             <th scope="col">ID</th>
           </tr>
      );
+    }
   }
-}
+  
+  export {TableHead};
