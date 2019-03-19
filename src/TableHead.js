@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import {TableRow} from './TableRow.js';
 export {TableHead};
 
 class TableHead extends Component {
