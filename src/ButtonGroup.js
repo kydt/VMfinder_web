@@ -16,9 +16,9 @@ class ButtonGroup extends Component {
   render() {
     return (
       <div className="btn-group buttons" role="group" aria-label="Basic example">
-        <button type="button" className="btn btn-primary">New</button>
-        <button type="button" className="btn btn-primary">Edit</button>
-        <button type="button" className="btn btn-primary">Delete</button>
+        <button type="button" className="btn btn-primary" onClick = {() => console.log('click New buton')}>New</button>
+        <button type="button" className="btn btn-primary" disabled>Edit</button>
+        <button type="button" className="btn btn-primary" disabled>Delete</button>
       </div>
     );
   }
