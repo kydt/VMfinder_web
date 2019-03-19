@@ -7,8 +7,9 @@ div{
 }
 
 .buttons {
-    text-align: left;
-}
+  display: block;
+  margin: 5pt auto;
+  }
 
 .headTytle{
   text-align: center;
