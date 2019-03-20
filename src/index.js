@@ -5,16 +5,84 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
 
 class App extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.saveUser = this.saveUser.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
     this.state = {
-      users:[
+      Vms:[
               {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
               {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
-              {name:'Alex3', leasee: 'Stan3', status: 'Available3', notes: '4563'},
-              {name:'Alex4', leasee: 'Stan4', status: 'Available3', notes: '4563'}
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'}, 
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},                                                       
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'}, 
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},                                                       
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'}, 
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},                                                       
+              {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
+              {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
+              {name:'Peter', leasee: 'Stem', status: 'Available', notes: '4563'},
+              {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},                            
             ],
       
       };
@@ -23,33 +91,29 @@ class App extends Component {
     saveUser(newUser,id){
       if (id === -1){
         this.setState(
-          {
-            users: this.state.users.concat(newUser), 
-          }
+          { Vms: this.state.Vms.concat(newUser) }
         );
         return;
       }
       this.setState(
-        {
-          users: this.state.users.map((oldUser, i) => i === id ? newUser : oldUser) 
-        }
+        { Vms: this.state.Vms.map( (oldUser, i) => i === id ? newUser : oldUser) }
       );
     }
 
     deleteUser(id){
       this.setState(
         {
-          users: this.state.users.filter((user, index) => index !== id) 
+          Vms: this.state.Vms.filter((user, index) => index !== id) 
         }
       );
     }
 
   render() {
     return (
-      <div>
+      <div className = 'main'>
         <h1 className="headTytle">VM Finder</h1>
         <div>
-          <TableReact users = {this.state.users} save = {this.saveUser} remove = {this.deleteUser}/>
+          <TableReact Vms = {this.state.Vms} save = {this.saveUser} remove = {this.deleteUser}/>
         </div>
       </div>
     );

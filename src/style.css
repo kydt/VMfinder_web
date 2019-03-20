@@ -6,6 +6,11 @@ div{
   text-align: center;
 }
 
+div.main{
+  margin: 0 20% 0 20%;
+  text-align: center;
+}
+
 .buttons {
   display: block;
   margin: 5pt auto;

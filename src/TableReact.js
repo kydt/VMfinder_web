@@ -9,8 +9,8 @@ import {ModalDelete} from './ModalDelete.js';
 import {ButtonGroup} from './ButtonGroup.js';
 
 class TableReact extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.rowIsSelected = this.rowIsSelected.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleChangeNew = this.handleChangeNew.bind(this);
@@ -22,6 +22,9 @@ class TableReact extends Component {
       showModalNew: false,
       showModalEdit: false,
       showModalDelete: false,
+      currentPage:1,
+      maxPage:1,
+      currentViewVmList: null,
     }
   }
   
@@ -55,10 +58,6 @@ class TableReact extends Component {
     });
   }
 
-  saveUser(user, id){
-
-  }
-
   rowIsSelected(id){
     if ( this.state.rowSelected ) {
       if ( this.state.rowSelectedId === id ) {
@@ -87,16 +86,31 @@ class TableReact extends Component {
         return 'table-primary';
       }
     }
-    return this.props.users[num].status === 'Busy' ? 'table-danger' : 'table-success';
+    return this.props.Vms[num].status === 'Busy' ? 'table-danger' : 'table-success';
+  }
+
+  pageNavigation(){
+    this.setState({
+      currentViewVmList: this.props.Vms.slice(0,10),
+      maxPage: Math.ceil(this.props.Vms.Lenght/10),
+    });
+    console.log(this.state.currentViewVmList);
+    console.log(this.state.maxPage);
+    return(
+      <div className="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" className = "btn btn-secondary">Previuos</button>
+        <button type="button" className = "btn btn-secondary">2</button>
+        <button type="button" className = "btn btn-secondary">3</button>
+        <button type="button" className = "btn btn-secondary">Next</button>
+      </div>
+    );
   }
   
-  //name, leasee, status, notes
-  render() {
+render() {
     return (
       <div  className = "table-responsive">
         <ButtonGroup onlyNewRow = {!this.state.rowSelected} addModal = {this.handleChange}/>
-        <br/>
-        <tb className="table table-hover responsive">
+        <table className="table table-hover responsive">
           <thead className = 'thead-dark'>
             <TableHead/>
           </thead>
@@ -104,12 +118,13 @@ class TableReact extends Component {
             <TableHead/>
           </tfoot>
           <tbody>
-            {this.props.users.map( (singleUser, position) => <TableRow user = {singleUser}  selectThisRow = {this.rowIsSelected} givenClassName = {this.getClassName(position)} id = {position} />) }
+            {this.props.Vms.map( (singleVm, position) => <TableRow user = {singleVm}  selectThisRow = {this.rowIsSelected} givenClassName = {this.getClassName(position)} id = {position} key = {position}/>) }
           </tbody>
-        </tb>
-        <ModalNew showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} createNewUser = {this.props.save}/>
-        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} user = {this.props.users[this.state.rowSelectedId]} editUser = {this.props.save}/>
-        <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteUser = {this.props.remove}/>
+        </table>
+        {this.pageNavigation}
+        <ModalNew showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} createNewVm = {this.props.save}/>
+        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} editVm = {this.props.save} currentVm = {this.props.Vms[this.state.rowSelectedId]} currentVmId = {this.state.rowSelectedId}/>
+        <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteUser = {this.props.remove} currentVmId = {this.state.rowSelectedId}/>
       </div>
     );
   }
