@@ -10,13 +10,7 @@ var Modal = ReactBootstrap.Modal;
 class ModalEdit extends Component {
     constructor(props){
         super(props);
-        console.log('this.props: ' + this.props.selectedVm);
-        console.log('props: ' + props.selectedVm);
         this.state = {
-            name: this.props.selectedVm.name,
-            leasee: this.props.selectedVm.leasee,
-            status: this.props.selectedVm.status,
-            notes: this.props.selectedVm.notes,
             errorState: false,
         }
     }

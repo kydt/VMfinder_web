@@ -45,9 +45,7 @@ class App extends Component {
               {name:'Ara', leasee: 'Santa', status: 'Busy', notes: '4563'},
               {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
               {name:'Alex', leasee: 'Stan', status: 'Available', notes: '456'},
-                 
             ],
-      
       };
   }
 
