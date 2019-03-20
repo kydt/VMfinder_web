@@ -9,10 +9,9 @@ var Modal = ReactBootstrap.Modal;
 class ModalDelete extends Component {
     deleteVmButton(){
         this.props.deleteVm(this.props.selectedVmId);
-        console.log(this.props.selectedVmId);
         this.props.operateModal();
     }
-//name, leasee, status, notes
+
     render() {
         return (
             <div>

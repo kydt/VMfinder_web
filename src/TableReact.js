@@ -19,7 +19,6 @@ class TableReact extends Component {
     this.pageDecrease = this.pageDecrease.bind(this);
     this.pageIncrease = this.pageIncrease.bind(this);
     this.pageNavigation = this.pageNavigation.bind(this);
-    this.pageNavigationButton = this.pageNavigationButton.bind(this);
     this.changeSelectedVM = this.changeSelectedVM.bind(this);
     this.state = {
       rowSelected: false,
