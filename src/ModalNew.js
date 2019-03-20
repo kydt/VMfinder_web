@@ -65,7 +65,7 @@ class ModalNew extends Component {
                     <Modal.Body>
                         <form>
                         <div className = "form-group row">
-                            <label for="inputName" className = "col-sm-2 col-form-label">Name</label>
+                            <label form = "inputName" className = "col-sm-2 col-form-label">Name</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="inputName" placeholder="Type Name Here"               
                                     value = {this.state.name}
@@ -74,7 +74,7 @@ class ModalNew extends Component {
                             {this.errorMessage()}
                         </div>
                         <div className = "form-group row">
-                            <label for="Leasee" className = "col-sm-2 col-form-label">Leasee</label>
+                            <label form="Leasee" className = "col-sm-2 col-form-label">Leasee</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Leasee" placeholder="Choose leasee"
                                  value = {this.state.leasee}
@@ -82,7 +82,7 @@ class ModalNew extends Component {
                             </div>
                         </div>
                         <div className = "form-group row">
-                            <label for="Status" className = "col-sm-2 col-form-label">Status</label>
+                            <label form="Status" className = "col-sm-2 col-form-label">Status</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Status" placeholder="Choose Status"
                                  value = {this.state.status}
@@ -90,7 +90,7 @@ class ModalNew extends Component {
                             </div>
                         </div>
                         <div className = "form-group row">
-                            <label for="Notes" className = "col-sm-2 col-form-label">Notes</label>
+                            <label form="Notes" className = "col-sm-2 col-form-label">Notes</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Notes" placeholder="Type Notes Here"
                                  value = {this.state.notes}

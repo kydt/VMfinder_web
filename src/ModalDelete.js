@@ -7,8 +7,9 @@ var Button = ReactBootstrap.Button
 var Modal = ReactBootstrap.Modal;
 
 class ModalDelete extends Component {
-    deleteUserButton(){
-        this.props.deleteUser(this.props.userId);
+    deleteVmButton(){
+        this.props.deleteVm(this.props.selectedVmId);
+        console.log(this.props.selectedVmId);
         this.props.operateModal();
     }
 //name, leasee, status, notes
@@ -25,7 +26,7 @@ class ModalDelete extends Component {
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={() => this.deleteUserButton()} bsstyle="primary" id="addButton">Delete</Button>
+                        <Button onClick={() => this.deleteVmButton()} bsstyle="primary" id="addButton">Delete</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

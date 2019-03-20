@@ -10,28 +10,18 @@ var Modal = ReactBootstrap.Modal;
 class ModalEdit extends Component {
     constructor(props){
         super(props);
-        console.log('this.props: ' + this.props);
-        console.log('props: ' + props);
+        console.log('this.props: ' + this.props.selectedVm);
+        console.log('props: ' + props.selectedVm);
         this.state = {
-            name: '',
-            Vm: this.initState(),
+            name: this.props.selectedVm.name,
+            leasee: this.props.selectedVm.leasee,
+            status: this.props.selectedVm.status,
+            notes: this.props.selectedVm.notes,
             errorState: false,
         }
     }
-
-    initState(){
-        return this.props.currentVm;
-           // leasee: this.props.currentVm.leasee,
-            //status: this.props.currentVm.status,
-            //notes: this.props.currentVm.notes
-
-    }
-
     
     editVm(){
-        console.log(this.state.Vm);
-        console.log(this.initState());
-        return;
         if (this.state.name === '') {
             this.setState( { errorState: true } );
             return;    
@@ -43,7 +33,7 @@ class ModalEdit extends Component {
             status: this.state.status,
             notes: this.state.notes,
         }
-        this.props.editVm(currentVm, this.props.currentVmId);
+        this.props.editVm(currentVm, this.props.selectedVmId);
         this.props.operateModal();
     }
 
@@ -79,7 +69,7 @@ class ModalEdit extends Component {
                     <Modal.Body>
                         <form>
                         <div className = "form-group row">
-                            <label for="inputName" className = "col-sm-2 col-form-label">Name</label>
+                            <label form = "inputName" className = "col-sm-2 col-form-label">Name</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="inputName" placeholder="Type Name Here"               
                                     value = {this.state.name}
@@ -88,7 +78,7 @@ class ModalEdit extends Component {
                             {this.errorMessage()}
                         </div>
                         <div className = "form-group row">
-                            <label for="Leasee" className = "col-sm-2 col-form-label">Leasee</label>
+                            <label form = "Leasee" className = "col-sm-2 col-form-label">Leasee</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Leasee" placeholder="Choose leasee"
                                  value = {this.state.leasee}
@@ -96,7 +86,7 @@ class ModalEdit extends Component {
                             </div>
                         </div>
                         <div className = "form-group row">
-                            <label for="Status" className = "col-sm-2 col-form-label">Status</label>
+                            <label form = "Status" className = "col-sm-2 col-form-label">Status</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Status" placeholder="Choose Status"
                                  value = {this.state.status}
@@ -104,7 +94,7 @@ class ModalEdit extends Component {
                             </div>
                         </div>
                         <div className = "form-group row">
-                            <label for="Notes" className = "col-sm-2 col-form-label">Notes</label>
+                            <label form = "Notes" className = "col-sm-2 col-form-label">Notes</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Notes" placeholder="Type Notes Here"
                                  value = {this.state.notes}
@@ -114,7 +104,7 @@ class ModalEdit extends Component {
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={() => this.editVm()} bsstyle="primary" id="addButton">Edit VM</Button>
+                        <Button onClick={() => this.editVm()} bsstyle="primary" id="editButton">Edit VM</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

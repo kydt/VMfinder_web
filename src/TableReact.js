@@ -16,6 +16,9 @@ class TableReact extends Component {
     this.handleChangeNew = this.handleChangeNew.bind(this);
     this.handleChangeEdit = this.handleChangeEdit.bind(this);
     this.handleChangeDelete = this.handleChangeDelete.bind(this);
+    this.pageDecrease = this.pageDecrease.bind(this);
+    this.pageIncrease = this.pageIncrease.bind(this);
+    this.pageNavigation = this.pageNavigation.bind(this);
     this.state = {
       rowSelected: false,
       rowSelectedId: -1,
@@ -23,8 +26,12 @@ class TableReact extends Component {
       showModalEdit: false,
       showModalDelete: false,
       currentPage:1,
-      maxPage:1,
-      currentViewVmList: null,
+      selectedVm: {
+        name:'',
+        leasee:'',
+        status:'',
+        notes:'',
+      },
     }
   }
   
@@ -60,48 +67,59 @@ class TableReact extends Component {
 
   rowIsSelected(id){
     if ( this.state.rowSelected ) {
-      if ( this.state.rowSelectedId === id ) {
+      if ( this.state.rowSelectedId === id + (this.state.currentPage - 1) * 10 ) {
         this.setState({
           rowSelected: false,
+          selectedVm: {
+            name:'',
+            leasee:'',
+            status:'',
+            notes:'',
+          },
         });
       }    
       else {
         this.setState({
-          rowSelectedId: id,
+          rowSelectedId: id + (this.state.currentPage - 1) * 10,
+          selectedVm: this.props.Vms[id + (this.state.currentPage - 1) * 10],
         });
       }
     }
     else{
       this.setState({
-        rowSelectedId: id,
-        rowSelected: true
+        rowSelectedId: id + (this.state.currentPage - 1) * 10,
+        rowSelected: true,
+        selectedVm: this.props.Vms[id + (this.state.currentPage - 1) * 10],
       });
     }
-    
   }
   
   getClassName(num){
     if (this.state.rowSelected) {
-      if (this.state.rowSelectedId === num) {
+      if (this.state.rowSelectedId === num + (this.state.currentPage - 1) * 10) {
         return 'table-primary';
       }
     }
     return this.props.Vms[num].status === 'Busy' ? 'table-danger' : 'table-success';
   }
 
+  pageIncrease(){
+    this.setState({ currentPage: this.state.currentPage + 1 });
+  }
+
+  pageDecrease(){
+    this.setState({ currentPage: this.state.currentPage - 1 });
+  }
+
   pageNavigation(){
-    this.setState({
-      currentViewVmList: this.props.Vms.slice(0,10),
-      maxPage: Math.ceil(this.props.Vms.Lenght/10),
-    });
-    console.log(this.state.currentViewVmList);
-    console.log(this.state.maxPage);
-    return(
+     return(
       <div className="btn-group mr-2" role="group" aria-label="First group">
-        <button type="button" className = "btn btn-secondary">Previuos</button>
-        <button type="button" className = "btn btn-secondary">2</button>
-        <button type="button" className = "btn btn-secondary">3</button>
-        <button type="button" className = "btn btn-secondary">Next</button>
+        <button type="button" className = "btn btn-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</button>
+        <button type="button" className = "btn btn-primary" onClick ={() => {this.setState({currentPage:1})}}>1</button>
+        <button type="button" className = "btn btn-primary" onClick ={() => {this.setState({currentPage:2})}}>2</button>
+        <button type="button" className = "btn btn-primary" onClick ={() => {this.setState({currentPage:3})}}>3</button>
+        <button type="button" className = "btn btn-primary" onClick ={() => {this.setState({currentPage:4})}}>4</button>
+        <button type="button" className = "btn btn-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 > this.props.maxNumber}>Next</button>
       </div>
     );
   }
@@ -118,13 +136,19 @@ render() {
             <TableHead/>
           </tfoot>
           <tbody>
-            {this.props.Vms.map( (singleVm, position) => <TableRow user = {singleVm}  selectThisRow = {this.rowIsSelected} givenClassName = {this.getClassName(position)} id = {position} key = {position}/>) }
+            {this.props.Vms.slice( (this.state.currentPage - 1) * 10, this.state.currentPage * 10)
+              .map( 
+                (singleVm, position) => 
+                <TableRow Vm = {singleVm}  selectThisRow = {this.rowIsSelected} givenClassName = {this.getClassName(position)} 
+                 id = {position} key = {position}/>
+                 ) 
+            }
           </tbody>
         </table>
-        {this.pageNavigation}
+        {this.pageNavigation()}
         <ModalNew showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} createNewVm = {this.props.save}/>
-        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} editVm = {this.props.save} currentVm = {this.props.Vms[this.state.rowSelectedId]} currentVmId = {this.state.rowSelectedId}/>
-        <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteUser = {this.props.remove} currentVmId = {this.state.rowSelectedId}/>
+        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} editVm = {this.props.save} selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}/>
+        <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteVm = {this.props.remove} selectedVmId = {this.state.rowSelectedId}/>
       </div>
     );
   }
