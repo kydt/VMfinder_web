@@ -22,19 +22,22 @@ class ModalEdit extends Component {
     }
     
     editVm(){
-        if (this.state.name === '') {
+        if (this.props.selectedVm.name === '') {
             this.setState( { errorState: true } );
             return;    
         }
-        this.setState( { errorState: false } );
         let currentVm = {
-            name: this.state.name,
-            leasee: this.state.leasee,
-            status: this.state.status,
-            notes: this.state.notes,
+            name: this.props.selectedVm.name,
+            leasee: this.props.selectedVm.leasee,
+            status: this.props.selectedVm.status,
+            notes: this.props.selectedVm.notes,
         }
         this.props.editVm(currentVm, this.props.selectedVmId);
         this.props.operateModal();
+    }
+
+    init(){
+
     }
 
     errorMessage(){
@@ -43,20 +46,50 @@ class ModalEdit extends Component {
     }
 
     changeInputName(value){
-        this.setState( { name: value } );
+        this.props.changeSelectedVM(
+            {
+                name: value,
+                leasee: this.props.selectedVm.leasee,
+                status: this.props.selectedVm.status,
+                notes: this.props.selectedVm.notes,
+            }
+        );
     }
 
     changeInputLeasee(value){
-        this.setState( { leasee: value } );
+        this.props.changeSelectedVM(
+            {
+                name: this.props.selectedVm.name,
+                leasee: value,
+                status: this.props.selectedVm.status,
+                notes: this.props.selectedVm.notes,
+            }
+        );
     }
     
     changeInputStatus(value){
-        this.setState( { status: value } );
+        this.props.changeSelectedVM(
+            {
+                name: this.props.selectedVm.name,
+                leasee: this.props.selectedVm.leasee,
+                status: value,
+                notes: this.props.selectedVm.notes,
+            }
+        );
     }
     
     changeInputNotes(value){
-        this.setState( { notes: value } );
+        this.props.changeSelectedVM(
+            {
+                name: this.props.selectedVm.name,
+                leasee: this.props.selectedVm.leasee,
+                status: this.props.selectedVm.status,
+                notes: value,
+            }
+        );
     }
+
+
 
 //name, leasee, status, notes
     render() {
@@ -72,7 +105,7 @@ class ModalEdit extends Component {
                             <label form = "inputName" className = "col-sm-2 col-form-label">Name</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="inputName" placeholder="Type Name Here"               
-                                    value = {this.state.name}
+                                    value = {this.props.selectedVm.name}
                                     onChange={(e)=> this.changeInputName(e.target.value)}/>
                             </div>
                             {this.errorMessage()}
@@ -81,7 +114,7 @@ class ModalEdit extends Component {
                             <label form = "Leasee" className = "col-sm-2 col-form-label">Leasee</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Leasee" placeholder="Choose leasee"
-                                 value = {this.state.leasee}
+                                 value = {this.props.selectedVm.leasee}
                                  onChange={(e)=> this.changeInputLeasee(e.target.value)}/>
                             </div>
                         </div>
@@ -89,7 +122,7 @@ class ModalEdit extends Component {
                             <label form = "Status" className = "col-sm-2 col-form-label">Status</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Status" placeholder="Choose Status"
-                                 value = {this.state.status}
+                                 value = {this.props.selectedVm.status}
                                  onChange={(e)=> this.changeInputStatus(e.target.value)}/>
                             </div>
                         </div>
@@ -97,7 +130,7 @@ class ModalEdit extends Component {
                             <label form = "Notes" className = "col-sm-2 col-form-label">Notes</label>
                             <div className = "col-sm-10">
                                 <input type="text" className = "form-control" id="Notes" placeholder="Type Notes Here"
-                                 value = {this.state.notes}
+                                 value = {this.props.selectedVm.notes}
                                  onChange={(e)=> this.changeInputNotes(e.target.value)}/>
                             </div>
                         </div>

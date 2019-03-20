@@ -19,6 +19,7 @@ class TableReact extends Component {
     this.pageDecrease = this.pageDecrease.bind(this);
     this.pageIncrease = this.pageIncrease.bind(this);
     this.pageNavigation = this.pageNavigation.bind(this);
+    this.changeSelectedVM = this.changeSelectedVM.bind(this);
     this.state = {
       rowSelected: false,
       rowSelectedId: -1,
@@ -45,6 +46,12 @@ class TableReact extends Component {
                 break;
       default: console.log('Sorry, we found ' + operation + ' is not supported');
     }
+  }
+
+  changeSelectedVM(childVm){
+    this.setState({
+      selectedVm: childVm,
+    });
   }
 
   handleChangeNew(){
@@ -112,17 +119,24 @@ class TableReact extends Component {
   }
 
   pageNavigation(){
-     return(
+    
+    return(
       <div className="btn-group mr-2" role="group" aria-label="First group">
-        <button type="button" className = "btn btn-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</button>
-        <button type="button" className = "btn btn-primary" onClick ={() => {this.setState({currentPage:1})}}>1</button>
-        <button type="button" className = "btn btn-primary" onClick ={() => {this.setState({currentPage:2})}}>2</button>
-        <button type="button" className = "btn btn-primary" onClick ={() => {this.setState({currentPage:3})}}>3</button>
-        <button type="button" className = "btn btn-primary" onClick ={() => {this.setState({currentPage:4})}}>4</button>
-        <button type="button" className = "btn btn-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 > this.props.maxNumber}>Next</button>
+        <button type="button" className = "btn btn-outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</button>
+        <button type="button" className = "btn btn-outline-primary"  onClick ={() => {this.setState({currentPage:1})}}>1</button>
+        <button type="button" className = "btn btn-outline-primary"  onClick ={() => {this.setState({currentPage:2})}}>2</button>
+        <button type="button" className = "btn btn-outline-primary"  onClick ={() => {this.setState({currentPage:3})}}>3</button>
+        <button type="button" className = "btn btn-outline-primary"  onClick ={() => {this.setState({currentPage:4})}}>4</button>
+        <button type="button" className = "btn btn-outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 > this.props.maxNumber}>Next</button>
       </div>
     );
   }
+
+  pageNavigationButton(num){
+    return(
+      <button type="button" className = "btn btn-outline-primary" onClick ={() => {this.setState({currentPage:num})}}>{num}}</button>
+    );} //"btn btn-primary"
+
   
 render() {
     return (
@@ -147,8 +161,9 @@ render() {
         </table>
         {this.pageNavigation()}
         <ModalNew showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} createNewVm = {this.props.save}/>
-        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} editVm = {this.props.save} selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}/>
+        <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} editVm = {this.props.save} changeSelectedVM = {this.changeSelectedVM} selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}/>
         <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteVm = {this.props.remove} selectedVmId = {this.state.rowSelectedId}/>
+        <div>{this.state.selectedVm.name}</div>
       </div>
     );
   }
