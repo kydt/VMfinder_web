@@ -30,10 +30,6 @@ class ModalEdit extends Component {
         this.props.operateModal();
     }
 
-    init(){
-
-    }
-
     errorMessage(){
         if(this.state.errorState){ return (<div className = 'form-text text-danger small'> Vm name is required </div>); }
         return null;

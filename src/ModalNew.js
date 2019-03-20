@@ -3,7 +3,7 @@ import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 const ReactBootstrap = require("react-bootstrap");
 
-var Button = ReactBootstrap.Button
+var Button = ReactBootstrap.Button;
 var Modal = ReactBootstrap.Modal;
 
 class ModalNew extends Component {
