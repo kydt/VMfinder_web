@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 class TableRow extends Component {
-  constructor(){
-    super();
-  }
-  
   //name, leasee, status, notes
   render() {
     return (

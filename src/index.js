@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import {render} from 'react-dom';
-import {ButtonGroup} from './ButtonGroup.js';
 import {TableReact} from './TableReact.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-import { ModalWindow } from './ModalWindow.js';
-
 
 class App extends Component {
   constructor(){
     super();
-    this.handleChange = this.handleChange.bind(this);
+    this.saveUser = this.saveUser.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
     this.state = {
       users:[
               {name:'Ivan', leasee: 'Sam', status: 'Busy', notes: '123'},
@@ -18,25 +16,41 @@ class App extends Component {
               {name:'Alex3', leasee: 'Stan3', status: 'Available3', notes: '4563'},
               {name:'Alex4', leasee: 'Stan4', status: 'Available3', notes: '4563'}
             ],
-      showModal: false
+      
       };
   }
 
-  handleChange(){
-    this.setState({
-      showModal: !this.state.showModal,
-    });
-  }
+    saveUser(newUser,id){
+      if (id === -1){
+        this.setState(
+          {
+            users: this.state.users.concat(newUser), 
+          }
+        );
+        return;
+      }
+      this.setState(
+        {
+          users: this.state.users.map((oldUser, i) => i === id ? newUser : oldUser) 
+        }
+      );
+    }
+
+    deleteUser(id){
+      this.setState(
+        {
+          users: this.state.users.filter((user, index) => index !== id) 
+        }
+      );
+    }
 
   render() {
     return (
       <div>
         <h1 className="headTytle">VM Finder</h1>
-        <ButtonGroup />
-        <div className = "table-responsive">
-          <TableReact users = {this.state.users}/>
+        <div>
+          <TableReact users = {this.state.users} save = {this.saveUser} remove = {this.deleteUser}/>
         </div>
-        <ModalWindow showHere = {this.state.showModal} operateModal = {this.handleChange}/>
       </div>
     );
   }
