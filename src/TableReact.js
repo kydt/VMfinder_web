@@ -20,8 +20,11 @@ class TableReact extends Component {
     this.pageIncrease = this.pageIncrease.bind(this);
     this.pageNavigation = this.pageNavigation.bind(this);
     this.changeSelectedVM = this.changeSelectedVM.bind(this);
+    this.returnEmptyVm = this.returnEmptyVm.bind(this);
+    this.renderUser = this.renderUser.bind(this);
+    this.getUser = this.getUser.bind(this);
     this.state = {
-      rowSelected: false,
+      //rowSelected: false,
       rowSelectedId: -1,
       showModalNew: false,
       showModalEdit: false,
@@ -29,7 +32,7 @@ class TableReact extends Component {
       currentPage:1,
       selectedVm: {
         name:'',
-        leasee:'',
+        leaseeId:'',
         status:'',
         notes:'',
       },
@@ -39,50 +42,33 @@ class TableReact extends Component {
   handleChange(operation){
     switch(operation){
       case 'New':  this.handleChangeNew();
-                break;
+      break;
       case 'Edit': this.handleChangeEdit();
-                break;
+      break;
       case 'Delete': this.handleChangeDelete();
-                break;
+      break;
       default: console.log('Sorry, we found ' + operation + ' is not supported');
     }
   }
-
-  changeSelectedVM(childVm){
-    this.setState({
-      selectedVm: childVm,
-    });
-  }
-
-  handleChangeNew(){
-    this.setState({
-      showModalNew: !this.state.showModalNew,
-    });
-  }
-
-  handleChangeEdit(){
-    this.setState({
-      showModalEdit: !this.state.showModalEdit,
-    });
-  }
-
-  handleChangeDelete(){
-    this.setState({
-      showModalDelete: !this.state.showModalDelete,
-    });
-  }
-
+  
+  changeSelectedVM = (childVm) => { this.setState({selectedVm: childVm}); }
+  
+  handleChangeNew = () => { this.setState({showModalNew: !this.state.showModalNew}); }
+  
+  handleChangeEdit = () => { this.setState({showModalEdit: !this.state.showModalEdit}); }
+  
+  handleChangeDelete = () => { this.setState({showModalDelete: !this.state.showModalDelete});  }
+  
+  pageIncrease = () => {this.setState({ currentPage: this.state.currentPage + 1 });}
+ 
+  pageDecrease = () => {this.setState({ currentPage: this.state.currentPage - 1 });}
+  
   rowIsSelected(id){
-    if ( this.state.rowSelected ) {
+    if ( this.state.rowSelectedId > -1 ) {
       if ( this.state.rowSelectedId === id + (this.state.currentPage - 1) * 10 ) {
         this.setState({
-          rowSelected: false,
-          selectedVm: {
-            name:'',
-            leasee:'',
-            status:'',
-            notes:'',
-          },
+         // rowSelected: false,
+          selectedVm: this.returnEmptyVm(),
         });
       }    
       else {
@@ -95,24 +81,32 @@ class TableReact extends Component {
     else{
       this.setState({
         rowSelectedId: id + (this.state.currentPage - 1) * 10,
-        rowSelected: true,
+        //rowSelected: true,
         selectedVm: this.props.Vms[id + (this.state.currentPage - 1) * 10],
       });
     }
   }
+
+  returnEmptyVm = () => { return {
+    name:'',
+    leaseeId:'',
+    status:'',
+    notes:'',
+  }}
+
+  getUser = (userId) =>  { return  this.props.users.find( (user) => user.id === userId ) }
+
+  renderUser = (userId) => {
+    let user = this.getUser(userId);
+    return user.first + ' ' + user.last;
+  }
   
   getClassName(num){
-    if (this.state.rowSelected) {
       if (this.state.rowSelectedId === num + (this.state.currentPage - 1) * 10) {
         return 'table-primary';
       }
-    }
     return this.props.Vms[num].status === 'Busy' ? 'table-danger' : 'table-success';
   }
-
-  pageIncrease = () => {this.setState({ currentPage: this.state.currentPage + 1 });}
-
-  pageDecrease = () => {this.setState({ currentPage: this.state.currentPage - 1 });}
 
   pageNavigation(){
     const maxPages = Math.min(Math.ceil(this.props.maxNumber / 10) , 10);
@@ -121,7 +115,7 @@ class TableReact extends Component {
     return(
       <div className="btn-group mr-2" role="group" aria-label="First group">
         <button type="button" className = "btn btn-outline-primary" onClick ={() => this.pageDecrease()} disabled = {this.state.currentPage <= 1}>Previous</button>
-        {pages.map( (num) => <button type="button" className = { num == this.state.currentPage ? "btn btn-primary" : " btn btn-outline-primary"} onClick = {() => {this.setState({currentPage:num})} } >{num}</button> ) }
+        {pages.map( (num) => <button key = {num} type="button" className = { num === this.state.currentPage ? "btn btn-primary" : " btn btn-outline-primary"} onClick = {() => {this.setState({currentPage:num})} } >{num}</button> ) }
         <button type="button" className = "btn btn-outline-primary" onClick ={() => this.pageIncrease()} disabled = { this.state.currentPage * 10 > this.props.maxNumber}>Next</button>
       </div>
     );
@@ -130,7 +124,7 @@ class TableReact extends Component {
 render() {
     return (
       <div  className = "table-responsive">
-        <ButtonGroup onlyNewRow = {!this.state.rowSelected} addModal = {this.handleChange}/>
+        <ButtonGroup onlyNewRow = { this.state.rowSelectedId < 0 } addModal = {this.handleChange}/>
         <table className="table table-hover responsive">
           <thead className = 'thead-dark'>
             <TableHead/>
@@ -143,7 +137,7 @@ render() {
               .map( 
                 (singleVm, position) => 
                 <TableRow Vm = {singleVm}  selectThisRow = {this.rowIsSelected} givenClassName = {this.getClassName(position)} 
-                 id = {position} key = {position}/>
+                id = {position} key = {position}  user = {this.renderUser(singleVm.leaseeId)}/>
                  ) 
             }
           </tbody>
@@ -152,7 +146,7 @@ render() {
         <ModalNew showHere = {this.state.showModalNew} operateModal = {this.handleChangeNew} createNewVm = {this.props.save}/>
         <ModalEdit showHere = {this.state.showModalEdit} operateModal = {this.handleChangeEdit} editVm = {this.props.save} changeSelectedVM = {this.changeSelectedVM} selectedVm = {this.state.selectedVm} selectedVmId = {this.state.rowSelectedId}/>
         <ModalDelete showHere = {this.state.showModalDelete} operateModal = {this.handleChangeDelete} deleteVm = {this.props.remove} selectedVmId = {this.state.rowSelectedId}/>
-        <div>{this.state.selectedVm.name}</div>
+
       </div>
     );
   }
